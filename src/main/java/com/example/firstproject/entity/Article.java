@@ -9,6 +9,7 @@ import	jakarta.persistence.Id;
 @NoArgsCOnstructor
 @ToString
 @Entity				// 엔티티	선언
+@Getter
 public	class	Article	{
     @Id				// 엔티티의	대푯값	지정
     @GeneratedValue	// 자동	생성	기능	추가(숫자가	자동으로	매겨짐)
@@ -17,6 +18,11 @@ public	class	Article	{
     private	String	title;
     @Column		// content	필드	선언,	DB	테이블의	cotent	열과	연결됨
     private	String	content;
+
+    public Long getId() {
+        return id;
+    }
+
     /*
     //	Article	생성자	추가
     public	Article(Long	id,	String	title,	String	content)	{ // dto/ArticleForm에 쓰기 위해 생성자 형식 확인

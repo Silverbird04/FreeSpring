@@ -31,7 +31,7 @@ public	class	ArticleController	{
         Article saved = articleRepository.save(article); // article entity 저장해 saved 객체에 반환
         log.info(saved.toString());
         // System.out.println(saved.toString()); // 확인 출력
-        return "";
+        return "redirect:/articles/" + saved.getId();
     }
 
     @GetMapping("/articles/{id}") // 데이터 조회 요청 접수
@@ -55,4 +55,27 @@ public	class	ArticleController	{
         return "articles/index";
     }
 
+    @GetMapping("/articles/{id}")
+    public String edit(@PathVariable Long id){
+        // 수정할 데이터 가져오기
+        Article articleEntity = articleRepository.findById(id).orElse(null);
+        // 모델에 데이터 등록하기
+        model.addAttribute("article", articleEntity);
+        // 뷰 페이지 설정하기
+        return "articles/edit";
+    }
+
+    @GetMapping("/articles/{id}/delete") // 8.2.2 추가
+    public String delete(@PathVariable Long id, RedirectAttributes rttr) {
+        log.info("삭제 요청이 들어왔습니다!!");
+        // 1. 삭제할 대상 가져오기
+        Article target = articleRepository.findById(id).orElse(null);
+        log.info(target.toString());
+        // 2. 대상 엔티티 삭제하기
+        if (target != null) {
+            articleRepository.delete(target);
+            rttr.addFlashAttribute("msg", "삭제됐습니다!"); // (key 문자열, 값)
+        }
+        // 3. 결과 페이지로 리다이렉트하기
+        return "redirect:/articles";
 }

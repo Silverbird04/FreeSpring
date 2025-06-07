@@ -1,0 +1,12 @@
+{{>layouts/header}}
+{{#article}} // article 사용 범위 지정
+<form class="container" action="/articles/update" method="post"> // actioni="" 7.3.3 배움
+    // 중략
+    <input type="text" class="form-control" name="title" value="{{title}}"> // 글의 제목 title
+    // 중략
+    <textarea class="form-control" rows="3" name="content">{{content}}</textarea> // 글의 내용 content
+    // 중략
+    <a href="/articles/{{article.id}}">Back</a> // 링크 수정
+</form>
+{{/article}}
+{{>layouts/footer}}
