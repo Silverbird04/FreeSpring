@@ -4,12 +4,15 @@ import	jakarta.persistence.Column;
 import	jakarta.persistence.Entity;
 import	jakarta.persistence.GeneratedValue;
 import	jakarta.persistence.Id;
+import lombok.*;
+
 
 @AllArgsConstructor
-@NoArgsCOnstructor
+@NoArgsConstructor
 @ToString
 @Entity				// 엔티티	선언
 @Getter
+@Setter
 public	class	Article	{
     @Id				// 엔티티의	대푯값	지정
     @GeneratedValue	// 자동	생성	기능	추가(숫자가	자동으로	매겨짐)
@@ -18,10 +21,12 @@ public	class	Article	{
     private	String	title;
     @Column		// content	필드	선언,	DB	테이블의	cotent	열과	연결됨
     private	String	content;
-
+/*
     public Long getId() {
         return id;
     }
+
+ */
 
     /*
     //	Article	생성자	추가
