@@ -1,9 +1,15 @@
 package com.example.firstproject.service;
 
+import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.entity.Article;
+import com.example.firstproject.repository.ArticleRepository;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -19,7 +25,7 @@ public class ArticleService {
     }
     // POST
     public Article create(ArticleForm dto) {
-        Article aticle = dto.toEntity(); // dto -> Entity 변환
+        Article article = dto.toEntity(); // dto -> Entity 변환
         if (article.getId() != null) { // article 객체에 id가 존재하면 null(이미 있는 데이터)
             return null;
         }
@@ -39,13 +45,13 @@ public class ArticleService {
         }
         // 4. 업데이트하기
         target.patch(article); // 기존 데이터에 새 데이터 붙이기
-        Article updated = articleRespository.save(target); // article 엔티티 DB에 저장
+        Article updated = articleRepository.save(target); // article 엔티티 DB에 저장
         return updated; // 응답은 컨트롤러가, 여기는 수정 데이터만 반환
     }
     // DELETE
     public Article delete(Long id){
         // 1. 대상 찾기
-        Article target = articleRespository.findById(id).orElse(null);
+        Article target = articleRepository.findById(id).orElse(null);
         // 2. 잘못된 요청 처리하기
         if (target == null) {
             return null;

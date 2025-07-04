@@ -15,9 +15,9 @@ public	class	FirstController	{
         return	"greetings"; // greetings.mustache 파일 반환
     }
 
-    @GetMapping(/bye) // URL 요청 접수
+    @GetMapping("/bye") // URL 요청 접수
     public String seeYouNext(Model model){
-        model.addAttribute("nickname", "유우시")
+        model.addAttribute("nickname", "유우시");
         return "goodbye";
     }
 }

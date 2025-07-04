@@ -1,11 +1,17 @@
 package com.example.firstproject.service;
 
+import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.entity.Article;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test; // Test 패키지
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 class ArticleServiceTest {
@@ -26,14 +32,14 @@ class ArticleServiceTest {
     }
     // show
     @Test
-    void show_성공_존재하는 _id_입력() {
+    void show_성공_존재하는_id_입력() {
         // 1. 예상 데이터
         Long id = 1L;
         Article expected = new Article(id, "가가가가", "1111");
         // 2. 실제 데이터
-        Article expected = articleService.show(id);
+        Article article = articleService.show(id);
         // 3. 비교 및 검증
-        assertEquals(expected.toString, article.toString());
+        assertEquals(expected.toString(), article.toString());
     }
     @Test
     void show_실패_존재하지_않는_id_입력() {
@@ -55,9 +61,9 @@ class ArticleServiceTest {
         ArticleForm dto = new ArticleForm(null, title, content);
         Article expected = new Article(4L, title, content);
         // 2. 실제 데이터
-        Article expected = articleService.create(dto);
+        Article article = articleService.create(dto);
         // 3. 비교 및 검증
-        assertEquals(expected.toString, article.toString());
+        assertEquals(expected.toString(), article.toString());
     }
     @Test
     @Transactional
@@ -69,7 +75,7 @@ class ArticleServiceTest {
         ArticleForm dto = new ArticleForm(id, title, content);
         Article expected = null;
         // 2. 실제 데이터
-        Article expected = articleService.create(dto);
+        Article article = articleService.create(dto);
         // 3. 비교 및 검증
         assertEquals(expected, article);
     }

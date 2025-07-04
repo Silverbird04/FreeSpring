@@ -1,16 +1,23 @@
 package com.example.firstproject.api;
 
 
+import com.example.firstproject.dto.ArticleForm;
+import com.example.firstproject.entity.Article;
 import com.example.firstproject.repository.ArticleRepository;
+import com.example.firstproject.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j // 로그 찍을 수 있게 추가 (Patch 1에서)
 @RestController
 public class ArticleApiController {
     @Autowired // 게시글 리파지터리 주입
-    private ArticleRepository articleRepository;
+    private ArticleService articleService;;
     // GET
     @GetMapping("/api/articles")
     public List<Article> index() {
@@ -30,8 +37,8 @@ public class ArticleApiController {
     }
     // PATCH
     @PatchMapping("/api/articles/{id}")
-    public ResponseENtity<Aritlce> update(@PathVariable Long id, @RequestBody ArticleForm dto) {
-        Article updated = articleService.update(id, dto) // 서비스 통해 게시글 수정
+    public ResponseEntity<Article> update(@PathVariable Long id, @RequestBody ArticleForm dto) {
+        Article updated = articleService.update(id, dto); // 서비스 통해 게시글 수정
         return (updated != null) ? 		// 수정되면 정상, 안 되면 오류 응답
                 ResponseEntity.status(HttpStatus.OK).body(updated):
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
