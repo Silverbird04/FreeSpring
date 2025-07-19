@@ -3,7 +3,7 @@ package com.example.firstproject.api;
 
 import com.example.firstproject.dto.ArticleForm;
 import com.example.firstproject.entity.Article;
-import com.example.firstproject.repository.ArticleRepository;
+// import com.example.firstproject.repository.ArticleRepository;
 import com.example.firstproject.service.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import java.util.List;
 @RestController
 public class ArticleApiController {
     @Autowired // 게시글 리파지터리 주입
-    private ArticleService articleService;;
+    private ArticleService articleService;
     // GET
     @GetMapping("/api/articles")
     public List<Article> index() {

@@ -39,7 +39,7 @@ public class ArticleService {
         // 2. 타깃 조회하기
         Article target = articleRepository.findById(id).orElse(null);
         // 3. 잘못된 요청 처리하기
-        if (target == null || id != article.getId()) {
+        if (target == null || !id.equals(article.getId())) {
             log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
             return null; // 응답은 컨트롤러가 함, 여기는 null 반환
         }

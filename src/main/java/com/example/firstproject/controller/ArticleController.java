@@ -1,5 +1,7 @@
 package	com.example.firstproject.controller;
 
+import com.example.firstproject.dto.CommentDto;
+import com.example.firstproject.service.CommentService;
 import	org.springframework.stereotype.Controller;
 import	org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
@@ -18,7 +20,11 @@ public	class	ArticleController {
     // 추가
     @Autowired // 스프링 부트가 미리 생성해 놓은 repository 객체 주입(DI)
     private ArticleRepository articleRepository; // 객체 선언
-
+    
+    // 추가 16.3
+    @Autowired
+    private CommentService commentService; // 서비스 객체 주입
+    
     @GetMapping("/articles/new")
     public String newArticleForm() {
         return "articles/new";
@@ -45,8 +51,11 @@ public	class	ArticleController {
         log.info("id = " + id);
         // 1. id 조회해 DB에서 해당 데이터 가져오기
         Article articleEntity = articleRepository.findById(id).orElse(null);
+        // 추가 16.3
+        List<CommentDto> commentsDtos = commentService.comments(id);
         // 2. 가져온 데이터를 모델에 등록하기
         model.addAttribute("article", articleEntity); // (String name, Object value)
+        model.addAttribute("commentDtos", commentsDtos); // 댓글 몰고 모델에 등록
         // 3. 뷰 페이지 반환하기
         return "articles/show";
     }

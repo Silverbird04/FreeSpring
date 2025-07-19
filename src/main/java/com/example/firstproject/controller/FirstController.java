@@ -1,7 +1,7 @@
 package	com.example.firstproject.controller;
 
 import org.springframework.ui.Model;
-// 컨트롤러 선언과	동시에	자동으로 임포트(@Controler)
+// 컨트롤러 선언과	동시에	자동으로 임포트(@Controller)
 import	org.springframework.stereotype.Controller;
 // URL 연결 요청과 동시에 자동으로 임포트(@GetMapping)
 import org.springframework.web.bind.annotation.GetMapping;
